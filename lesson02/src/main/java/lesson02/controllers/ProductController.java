@@ -50,7 +50,7 @@ public class ProductController {
         return "redirect:/products/" + savedProduct.getId();
     }
 
-    @GetMapping(params={"price_from", "price_to"})
+    @GetMapping(params={"price_from"})
     public String productsByPrice(Model model,
                                   @RequestParam("price_from") Double priceFrom,
                                   @RequestParam(value = "price_to", required = false) Double priceTo) {
