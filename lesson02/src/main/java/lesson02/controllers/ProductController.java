@@ -49,4 +49,14 @@ public class ProductController {
         Product savedProduct = productService.save(product);
         return "redirect:/products/" + savedProduct.getId();
     }
+
+    @GetMapping(params={"price_from", "price_to"})
+    public String productsByPrice(Model model,
+                                  @RequestParam("price_from") Double priceFrom,
+                                  @RequestParam(value = "price_to", required = false) Double priceTo) {
+        priceTo = priceTo == null ? Double.MAX_VALUE: priceTo;
+        List<Product> products = productService.getByPrice(priceFrom, priceTo);
+        model.addAttribute("products", products);
+        return "list";
+    }
 }
