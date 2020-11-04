@@ -1,11 +1,17 @@
 package domain;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "lect03_clients")
+@NamedQueries({
+        @NamedQuery(name = "Client.findAll", query = "SELECT a From Client a")
+})
 public class Client {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -14,6 +20,7 @@ public class Client {
     private String name;
 
     @OneToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Purchase> purchases;
 
 
@@ -42,4 +49,10 @@ public class Client {
         this.purchases = purchases;
     }
     //</editor-fold>
+
+
+    @Override
+    public String toString() {
+        return "Id=" + id + ", Name=\'" + name + "\', Number of purchases=" + purchases.size();
+    }
 }

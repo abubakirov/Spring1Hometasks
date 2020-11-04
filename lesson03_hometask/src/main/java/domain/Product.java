@@ -1,10 +1,15 @@
 package domain;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "products")
+@Table(name = "lect03_products")
+@NamedQueries({
+        @NamedQuery(name = "Product.findAll", query = "SELECT a FROM Product a")
+})
 public class Product {
 
     @Id
@@ -15,6 +20,7 @@ public class Product {
     private String title;
 
     @OneToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Purchase> sales;
 
     //<editor-fold desc="getters/setters">
@@ -44,4 +50,10 @@ public class Product {
     }
 
     //</editor-fold>
+
+
+    @Override
+    public String toString() {
+        return "Id=" + id + ", title=\'" + title + "\', Number of sales=" + sales.size();
+    }
 }
