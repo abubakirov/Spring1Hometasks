@@ -28,9 +28,12 @@ import java.util.Properties;
 public class SpringConfiguration implements WebMvcConfigurer {
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
+        //TODO Remove this shit from here
+
+
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost/5432/postgres");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
         dataSource.setUsername("postgres");
         dataSource.setPassword("admin");
         return dataSource;
