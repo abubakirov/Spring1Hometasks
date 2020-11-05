@@ -3,7 +3,7 @@ package org.example.lesson04_lect.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "authors")
+@Table(name = "lect04_authors")
 public class Author {
     @Id
     @GeneratedValue

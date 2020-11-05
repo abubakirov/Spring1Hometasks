@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "articles")
+@Table(name = "lect04_articles")
 public class Article {
     @Id
     @GeneratedValue
@@ -70,5 +70,10 @@ public class Article {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "{id=" + id + ", title=\'" + title + "\', date=" + date.toString() + "}";
     }
 }
