@@ -4,6 +4,9 @@ import org.example.lesson04_hometask.InitData;
 import org.example.lesson04_hometask.domain.Product;
 import org.example.lesson04_hometask.repositories.ProductDAO;
 import org.example.lesson04_hometask.services.ProductServiceImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,15 +62,8 @@ public class IndexController {
 
     @GetMapping(value = "/listBy3", params = {"page"})
     public String listBy3(Model uiModel, @RequestParam("page") int page) {
-        List<Product> products = productService.findAll();
-        List<Product> someProducts = new ArrayList<>();
-        int i_min = 3*(page - 1);
-        int i_max = 3*page;
-        while (i_min < i_max && i_min < products.size()) {
-            someProducts.add(products.get(i_min));
-            i_min++;
-        }
-        uiModel.addAttribute("products", someProducts);
+        Page<Product> products = productService.findAll(PageRequest.of(page - 1, 3));
+        uiModel.addAttribute("products", products);
         return "list";
     }
 }

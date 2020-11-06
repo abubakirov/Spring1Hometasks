@@ -2,6 +2,8 @@ package org.example.lesson04_hometask.services;
 
 import org.example.lesson04_hometask.domain.Product;
 import org.example.lesson04_hometask.repositories.ProductDAO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -36,18 +38,23 @@ public class ProductServiceImpl {
 
     @Transactional
     public Product findMinPrice() {
-        List<Product> products =  productDAO.findAll(Sort.by(Sort.Direction.ASC, "price"));
+        List<Product> products = productDAO.findTop1ByOrderByPriceAsc();
         return products.size() == 0 ? null : products.get(0);
     }
 
     @Transactional
     public Product findMaxPrice() {
-        List<Product> products =  productDAO.findAll(Sort.by(Sort.Direction.DESC, "price"));
+        List<Product> products = productDAO.findTop1ByOrderByPriceDesc();
         return products.size() == 0 ? null : products.get(0);
     }
 
     @Transactional
     public List<Product> findAll() {
         return productDAO.findAll();
+    }
+
+    @Transactional
+    public Page<Product> findAll(Pageable pageable) {
+        return productDAO.findAll(pageable);
     }
 }
