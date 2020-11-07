@@ -57,4 +57,9 @@ public class ProductServiceImpl {
     public Page<Product> findAll(Pageable pageable) {
         return productDAO.findAll(pageable);
     }
+
+    @Transactional
+    public List<Product> findByPrice(double minPrice, double maxPrice) {
+        return productDAO.findAllByPriceBetween(minPrice, maxPrice);
+    }
 }

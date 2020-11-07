@@ -64,6 +64,23 @@ public class IndexController {
     public String listBy3(Model uiModel, @RequestParam("page") int page) {
         Page<Product> products = productService.findAll(PageRequest.of(page - 1, 3));
         uiModel.addAttribute("products", products);
+        uiModel.addAttribute("prevPageExists", page > 1);
+        uiModel.addAttribute("nextPageExists", products.hasNext());
+        uiModel.addAttribute("prevPage", page - 1);
+        uiModel.addAttribute("nextPage", page + 1);
+        return "listBy3";
+    }
+
+    @GetMapping(value="/formFilterByPrice")
+    public String formFilterByPrice(Model uiModel) {
+        return "formFilterByPrice";
+    }
+
+    @GetMapping(value = "/filteredResults", params={"min_price", "max_price"})
+    public String filteredResults(Model uiModel, @RequestParam("min_price") double minPrice,
+                                  @RequestParam("max_price") double maxPrice) {
+        List<Product> products = productService.findByPrice(minPrice, maxPrice);
+        uiModel.addAttribute("products", products);
         return "list";
     }
 }

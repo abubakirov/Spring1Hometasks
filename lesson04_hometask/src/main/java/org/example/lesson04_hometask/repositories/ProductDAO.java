@@ -11,4 +11,5 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     public List<Product> findTop1ByOrderByPriceAsc();
     public List<Product> findTop1ByOrderByPriceDesc();
     public Page<Product> findAll(Pageable pageable);
+    public List<Product> findAllByPriceBetween(double minPrice, double maxPrice);
 }
