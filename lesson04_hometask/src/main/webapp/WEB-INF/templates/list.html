@@ -7,15 +7,19 @@
 <body>
 <h1>List of products:</h1>
 <table border="1">
+    <thead>
     <tr>
         <th>Id</th>
         <th>Title</th>
         <th>Price</th>
+        <th>Go to product page</th>
     </tr>
+    </thead>
     <tr th:each="product : ${products}">
         <td th:text="${product.id}">Id</td>
         <td th:text="${product.title}">Title</td>
         <td th:text="${product.price}">Price</td>
+        <td><a th:href="@{/product(id=${product.id})}">Link</a></td>
     </tr>
 </table>
 </body>

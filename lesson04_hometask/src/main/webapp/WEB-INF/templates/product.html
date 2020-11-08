@@ -5,19 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-<table border="1">
-    <tr>
-        <td>Id</td>
-        <td th:text="${product.id}">Id</td>
-    </tr>
-    <tr>
-        <td>Title</td>
-        <td th:text="${product.title}">Name</td>
-    </tr>
-    <tr>
-        <td>Price</td>
-        <td th:text="${product.price}">100</td>
-    </tr>
-</table>
+
+<div th:if="${updated}">
+    Saved successfully!
+</div>
+
+<form th:action="@{/product(page=${product.id})}" method="post" th:object="${product}">
+    <p>Id: </p>
+    <input type="number" th:value="${product.id}" disabled="disabled" name="id">
+    <p>Title: </p>
+    <input type="text" th:value="${product.title}"><br/>
+    <p>Price: </p>
+    <input type="number" th:value="${product.price}"><br/>
+    <input type="submit" value="Сохранить">
+</form>
 </body>
 </html>

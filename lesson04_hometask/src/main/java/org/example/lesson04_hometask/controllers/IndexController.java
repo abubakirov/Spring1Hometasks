@@ -39,6 +39,14 @@ public class IndexController {
         return "product";
     }
 
+    @PostMapping("/product/{id}")
+    public String product(Model uiModel, @PathVariable("id") Long id) {
+        Product newProduct = uiModel.getAttribute("product");
+        productService.save(newProduct);
+        uiModel.addAttribute("updated", true);
+        return "product";
+    }
+
     @GetMapping("/productMinPrice")
     public String productMinPrice(Model uiModel) {
         Product product = productService.findMinPrice();

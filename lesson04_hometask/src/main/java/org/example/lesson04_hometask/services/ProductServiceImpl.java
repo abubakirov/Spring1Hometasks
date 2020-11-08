@@ -62,4 +62,5 @@ public class ProductServiceImpl {
     public List<Product> findByPrice(double minPrice, double maxPrice) {
         return productDAO.findAllByPriceBetween(minPrice, maxPrice);
     }
+
 }
