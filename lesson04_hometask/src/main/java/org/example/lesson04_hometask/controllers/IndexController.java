@@ -4,14 +4,16 @@ import org.example.lesson04_hometask.InitData;
 import org.example.lesson04_hometask.domain.Product;
 import org.example.lesson04_hometask.repositories.ProductDAO;
 import org.example.lesson04_hometask.services.ProductServiceImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class IndexController {
@@ -30,9 +32,16 @@ public class IndexController {
     }
 
     @GetMapping("/product/{id}")
-    public String product(Model uiModel, @PathVariable("id") Long id) {
+    public String productGet(Model uiModel, @PathVariable("id") Long id) {
         Product product = productService.findById(id);
         uiModel.addAttribute("product", product);
+        return "product";
+    }
+
+    @PostMapping("/product/{id}")
+    public String productPost(Product product, Model model, @PathVariable("id") Long id) {
+        productService.save(product);
+        model.addAttribute("updated", true);
         return "product";
     }
 
@@ -57,17 +66,27 @@ public class IndexController {
         return "list";
     }
 
-    @GetMapping(value = "/listBy3", params = {"page"})
-    public String listBy3(Model uiModel, @RequestParam("page") int page) {
-        List<Product> products = productService.findAll();
-        List<Product> someProducts = new ArrayList<>();
-        int i_min = 3*(page - 1);
-        int i_max = 3*page;
-        while (i_min < i_max && i_min < products.size()) {
-            someProducts.add(products.get(i_min));
-            i_min++;
-        }
-        uiModel.addAttribute("products", someProducts);
+    @GetMapping(value = "/listBy3")
+    public String listBy3(Model uiModel, @RequestParam(value = "page", defaultValue = "1") int page) {
+        Page<Product> products = productService.findAll(PageRequest.of(page - 1, 3));
+        uiModel.addAttribute("products", products);
+        uiModel.addAttribute("prevPageExists", page > 1);
+        uiModel.addAttribute("nextPageExists", products.hasNext());
+        uiModel.addAttribute("prevPage", page - 1);
+        uiModel.addAttribute("nextPage", page + 1);
+        return "listBy3";
+    }
+
+    @GetMapping(value="/formFilterByPrice")
+    public String formFilterByPrice(Model uiModel) {
+        return "formFilterByPrice";
+    }
+
+    @GetMapping(value = "/filteredResults", params={"min_price", "max_price"})
+    public String filteredResults(Model uiModel, @RequestParam("min_price") double minPrice,
+                                  @RequestParam("max_price") double maxPrice) {
+        List<Product> products = productService.findByPrice(minPrice, maxPrice);
+        uiModel.addAttribute("products", products);
         return "list";
     }
 }
