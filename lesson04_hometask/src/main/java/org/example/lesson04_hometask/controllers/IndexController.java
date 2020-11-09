@@ -9,9 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +31,15 @@ public class IndexController {
     }
 
     @GetMapping("/product/{id}")
-    public String product(Model uiModel, @PathVariable("id") Long id) {
+    public String productGet(Model uiModel, @PathVariable("id") Long id) {
         Product product = productService.findById(id);
         uiModel.addAttribute("product", product);
         return "product";
     }
 
     @PostMapping("/product/{id}")
-    public String product(Model uiModel, @PathVariable("id") Long id) {
-        Product newProduct = uiModel.getAttribute("product");
+    public String productPost(Model uiModel, @PathVariable("id") Long id) {
+        Product newProduct = (Product)uiModel.getAttribute("product");
         productService.save(newProduct);
         uiModel.addAttribute("updated", true);
         return "product";

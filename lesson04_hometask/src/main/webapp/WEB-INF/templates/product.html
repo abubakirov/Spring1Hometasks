@@ -10,13 +10,13 @@
     Saved successfully!
 </div>
 
-<form th:action="@{/product(page=${product.id})}" method="post" th:object="${product}">
+<form th:action="@{/product/{id}(id=${product.id})}" method="post" th:object="${product}">
     <p>Id: </p>
-    <input type="number" th:value="${product.id}" disabled="disabled" name="id">
+    <input type="number" th:value="${product.id}" th:field="*{id}" disabled="disabled">
     <p>Title: </p>
-    <input type="text" th:value="${product.title}"><br/>
+    <input type="text" th:value="${product.title}" th:field="*{title}"><br/>
     <p>Price: </p>
-    <input type="number" th:value="${product.price}"><br/>
+    <input type="number" th:value="${product.price}" th:field="*{price}"><br/>
     <input type="submit" value="Сохранить">
 </form>
 </body>

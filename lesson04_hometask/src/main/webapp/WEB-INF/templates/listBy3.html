@@ -17,7 +17,7 @@
         <td th:text="${product.id}">Id</td>
         <td th:text="${product.title}">Title</td>
         <td th:text="${product.price}">Price</td>
-        <td><a th:href="@{/product(id=${product.id})}">Link</a></td>
+        <td><a th:href="@{/product/{id}(id=${product.id})}">Link</a></td>
     </tr>
 </table>
 <a th:if="${prevPageExists}" th:href="@{/listBy3(page=${prevPage})}">Previous page</a><br/>
