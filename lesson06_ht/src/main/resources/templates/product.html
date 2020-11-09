@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:if="${updated}">
+    Saved successfully!
+</div>
+
+<form th:action="@{/product/{id}(id=${product.id})}" method="post" th:object="${product}">
+    <p>Id: </p>
+    <input type="number" th:value="${product.id}" th:field="*{id}" disabled="disabled">
+    <p>Title: </p>
+    <input type="text" th:value="${product.title}" th:field="*{title}"><br/>
+    <p>Price: </p>
+    <input type="number" th:value="${product.price}" th:field="*{price}"><br/>
+    <input type="submit" value="Сохранить">
+</form>
+
+<a th:href="@{/list}">К списку продуктов</a>
+</body>
+</html>
