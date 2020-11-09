@@ -7,14 +7,12 @@
 <body>
 <h1>List of products:</h1>
 <table border="1">
-    <thead>
     <tr>
         <th>Id</th>
         <th>Title</th>
         <th>Price</th>
         <th>Go to product page</th>
     </tr>
-    </thead>
     <tr th:each="product : ${products}">
         <td th:text="${product.id}">Id</td>
         <td th:text="${product.title}">Title</td>
@@ -22,5 +20,7 @@
         <td><a th:href="@{/product/{id}(id=${product.id})}">Link</a></td>
     </tr>
 </table>
+<a th:if="${products.hasPrevious()}" th:href="@{/listBy3(page=${prevPage})}">Previous page</a><br/>
+<a th:if="${products.hasNext()}" th:href="@{/listBy3(page=${nextPage})}">Next page</a>
 </body>
 </html>

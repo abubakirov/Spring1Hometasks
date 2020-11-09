@@ -1,6 +1,6 @@
-package org.example.lesson04_hometask.repositories;
+package com.abubakirov.lesson06_ht.repositories;
 
-import org.example.lesson04_hometask.domain.Product;
+import com.abubakirov.lesson06_ht.domain.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

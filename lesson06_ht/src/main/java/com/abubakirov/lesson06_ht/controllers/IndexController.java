@@ -1,23 +1,21 @@
-package org.example.lesson04_hometask.controllers;
+package com.abubakirov.lesson06_ht.controllers;
 
-import org.example.lesson04_hometask.InitData;
-import org.example.lesson04_hometask.domain.Product;
-import org.example.lesson04_hometask.repositories.ProductDAO;
-import org.example.lesson04_hometask.services.ProductServiceImpl;
+import com.abubakirov.lesson06_ht.InitData;
+import com.abubakirov.lesson06_ht.domain.Product;
+import com.abubakirov.lesson06_ht.service.ProductServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class IndexController {
-
     private final ProductServiceImpl productService;
 
     public IndexController(ProductServiceImpl productService) {

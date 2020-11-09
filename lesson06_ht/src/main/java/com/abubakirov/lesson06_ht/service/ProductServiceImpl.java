@@ -1,10 +1,9 @@
-package org.example.lesson04_hometask.services;
+package com.abubakirov.lesson06_ht.service;
 
-import org.example.lesson04_hometask.domain.Product;
-import org.example.lesson04_hometask.repositories.ProductDAO;
+import com.abubakirov.lesson06_ht.domain.Product;
+import com.abubakirov.lesson06_ht.repositories.ProductDAO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,9 +12,7 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl {
-
-    private ProductDAO productDAO;
-
+    ProductDAO productDAO;
 
     public ProductServiceImpl(ProductDAO productDAO) {
         this.productDAO = productDAO;
@@ -62,5 +59,4 @@ public class ProductServiceImpl {
     public List<Product> findByPrice(double minPrice, double maxPrice) {
         return productDAO.findAllByPriceBetween(minPrice, maxPrice);
     }
-
 }
