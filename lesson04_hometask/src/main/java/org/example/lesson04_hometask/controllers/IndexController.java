@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class IndexController {
@@ -38,10 +39,9 @@ public class IndexController {
     }
 
     @PostMapping("/product/{id}")
-    public String productPost(Model uiModel, @PathVariable("id") Long id) {
-        Product newProduct = (Product)uiModel.getAttribute("product");
-        productService.save(newProduct);
-        uiModel.addAttribute("updated", true);
+    public String productPost(Product product, Model model, @PathVariable("id") Long id) {
+        productService.save(product);
+        model.addAttribute("updated", true);
         return "product";
     }
 
@@ -66,8 +66,8 @@ public class IndexController {
         return "list";
     }
 
-    @GetMapping(value = "/listBy3", params = {"page"})
-    public String listBy3(Model uiModel, @RequestParam("page") int page) {
+    @GetMapping(value = "/listBy3")
+    public String listBy3(Model uiModel, @RequestParam(value = "page", defaultValue = "1") int page) {
         Page<Product> products = productService.findAll(PageRequest.of(page - 1, 3));
         uiModel.addAttribute("products", products);
         uiModel.addAttribute("prevPageExists", page > 1);
